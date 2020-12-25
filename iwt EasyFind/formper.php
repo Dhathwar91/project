@@ -12,6 +12,7 @@
            <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" />  
            <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>  
 </head>
+<!-- styling the form-->
 <style>
            body
              {
@@ -40,9 +41,8 @@
  
              </style>
             
-          
-
 <body>
+<!-- creating form for lost items-->
 <form action="" method="POST" enctype="multipart/form-data">
 <div style="margin:10px">
     <h1><center>Fill this out</center></h1>
@@ -65,18 +65,19 @@
 	 
     <input type="file" name="image" id="image" />  
         </div>  
-    
+<!--submit button to submit details-->     
 	   <input type="submit" name="upload" value="SUBMIT"/> <br>
 </div>
 <div>
 <a href="index2.php" class="btn btn-primary" style="margin:10px">Click here to go back to the login page</a>
-
+<!-- on clicking button "click here to go back to login page,it refers to index2.php-->
 </div>
 		</form>
 </body>
 </html>
       
       <?php
+	  //establishing the connection to database
     $con=mysqli_connect("localhost","root","","iwtproject");
     $db=mysqli_select_db($con,'iwtproject');
     if(isset($_POST['upload']))
@@ -88,9 +89,12 @@
 		$des=$_POST['des'];
 		$location=$_POST['location'];
 	 $file=addslashes(file_get_contents($_FILES["image"]["tmp_name"]));
+	 //query to insert values into table personal
 $query="INSERT INTO `personal`(`owner`,`typeid`,`phone`,`des`,`location`,`tb8image`) VALUES('$owner','$typeid','$phone','$des','$location','$file')"; 
+//run the query 
 	$query_run=mysqli_query($con,$query);		
-            
+
+//if query successfully runs print the message else print not uploaded             
 	if($query_run)
 	{
 		echo '<script type="text/javascript">alert("Your details have been submitted successfully.Please wait for someone to contact you about the missing item.")</script>';
