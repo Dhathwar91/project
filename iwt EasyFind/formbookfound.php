@@ -44,13 +44,27 @@
 
 <body>
 <!-- creating form for found items-->
+<?php 
+// Start the session
+  session_start(); 
+  if (!isset($_SESSION['username'])) {
+    $_SESSION['msg'] = "You must log in first";
+    header('location: login2.php');
+  }
+  if (isset($_GET['logout'])) {
+    session_destroy();
+    unset($_SESSION['username']);
+      header("location: login2.php");
+      $author = mysqli_real_escape_string($db, $_POST['author']);
+  }
+?>
 <form action="" method="POST" enctype="multipart/form-data">
 <div style="margin:10px">
     <h1><center>Fill this out</center></h1>
     Name of the owner<br>
     <input type="text" name="owner" required/>
     <br>
-    Type of ID card<br>
+    Type of book<br>
     <input type="text" name="typeid" required/>
     <br>
     Mobile number<br>
@@ -90,9 +104,10 @@
 		$phone=$_POST['phone'];
 		$des=$_POST['des'];
 		$location=$_POST['location'];
+		$creator=$_SESSION['username'];
 	 $file=addslashes(file_get_contents($_FILES["image"]["tmp_name"]));
 	 //query to insertvalues into table bookfound
-$query="INSERT INTO `bookfound`(`owner`,`typeid`,`phone`,`des`,`location`,`tb2image`) VALUES('$owner','$typeid','$phone','$des','$location','$file')"; 
+$query="INSERT INTO `bookfound`(`owner`,`typeid`,`phone`,`des`,`location`,`tb2image`,`creator`) VALUES('$owner','$typeid','$phone','$des','$location','$file','$creator')"; 
 //run the query
 	$query_run=mysqli_query($con,$query);		
  //if query successfully runs print the message else print not uploaded             

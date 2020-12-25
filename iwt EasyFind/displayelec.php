@@ -17,11 +17,12 @@ body{
 <thread>
 <tr>
 <th>name of the owner</th>
-<th>type of id card</th>
+<th>type of gadget</th>
 <th>mobile number</th>
 <th>description</th>
 <th>location</th>
 <th>image</th>
+<th>chat</th>
 <tr>
 </thread>
 <!-- get all information stored in database -->
@@ -41,6 +42,7 @@ while($row=mysqli_fetch_array($query_run))
 <td> <?php echo $row['location'];
  ?></td>
 <td> <?php echo '<img src="data:image;base64,'.base64_encode($row['tb3image']).'"alt="image" style="width:100px;height"100px;" >';?></td>
+ <td><?php echo "<a href='chat.php?username=".$row['creator']."'>Chat</a>";?> </td>
 </tr>
 <?php	
 	
